@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <IRKit/IRKit.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [IRKit startWithAPIKey:@"547125A18B6342E6B9DFF31218EAB0E6"];
+
     return YES;
 }
 
