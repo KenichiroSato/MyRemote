@@ -11,6 +11,8 @@
 #import <IRKit/IRHTTPClient.h>
 #import <IRKit/IRKit.h>
 
+static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
+
 @interface SecondViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     NSMutableArray *_signals;
@@ -22,7 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _signals = [NSMutableArray array];
+    [self loadSignals];
+    if (!_signals) {
+        _signals = [NSMutableArray array];
+    }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
@@ -87,7 +92,23 @@
         IRSignal *signal = [_signals objectAtIndex:0];
         signal.name = alertTextField.text;
         [self.tableView reloadData];
+        [self saveSignals];
     }
+}
+
+- (void)saveSignals
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_signals] forKey:USER_DEFAULT_KEY_SIGNALS];
+    [ud synchronize];
+}
+
+- (void)loadSignals
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSData *data = [ud objectForKey:USER_DEFAULT_KEY_SIGNALS];
+    NSArray *retrievedArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    _signals = [retrievedArray mutableCopy];
 }
 
 #pragma mark - Table View
