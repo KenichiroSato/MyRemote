@@ -1,0 +1,17 @@
+PODS:
+  - IRKit (1.0.1):
+    - ISHTTPOperation (~> 1.1.0)
+  - ISHTTPOperation (1.1.1)
+
+DEPENDENCIES:
+  - IRKit (from `https://github.com/irkit/ios-sdk.git`)
+
+EXTERNAL SOURCES:
+  IRKit:
+    :git: https://github.com/irkit/ios-sdk.git
+
+SPEC CHECKSUMS:
+  IRKit: e43a77203a82ab93cbeeb4c1a8a485ff673de856
+  ISHTTPOperation: dfc268703df15b98667c1d8bef9dcd60b6205195
+
+COCOAPODS: 0.33.1

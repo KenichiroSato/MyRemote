@@ -1,0 +1,1 @@
+PODS_IRKIT_OTHER_LDFLAGS = -lc++ -framework AVFoundation -framework AudioToolbox -framework CoreGraphics -framework CoreTelephony -framework Foundation -framework MediaPlayer -framework QuartzCore -framework SystemConfiguration -framework UIKit

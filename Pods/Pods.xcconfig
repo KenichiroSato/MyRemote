@@ -1,0 +1,5 @@
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/IRKit" "${PODS_ROOT}/Headers/ISHTTPOperation"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/IRKit" -isystem "${PODS_ROOT}/Headers/ISHTTPOperation"
+OTHER_LDFLAGS = -ObjC -lc++ -framework AVFoundation -framework AudioToolbox -framework CoreGraphics -framework CoreTelephony -framework Foundation -framework MediaPlayer -framework QuartzCore -framework SystemConfiguration -framework UIKit
+PODS_ROOT = ${SRCROOT}/Pods
