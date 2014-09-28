@@ -15,6 +15,7 @@
 		5973B59819D6B56700BED80C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5973B59719D6B56700BED80C /* Images.xcassets */; };
 		5973B59B19D6B56700BED80C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5973B59919D6B56700BED80C /* LaunchScreen.xib */; };
 		5973B5A719D6B56800BED80C /* MyRemoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B5A619D6B56800BED80C /* MyRemoteTests.m */; };
+		5973B5B619D7E06400BED80C /* UIAlerView+Completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B5B519D7E06400BED80C /* UIAlerView+Completion.m */; };
 		9198327224984329B3AFEA1E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF685CE2C49B4E3A8DCD7210 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		5973B5A019D6B56700BED80C /* MyRemoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyRemoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5973B5A519D6B56800BED80C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5973B5A619D6B56800BED80C /* MyRemoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTests.m; sourceTree = "<group>"; };
+		5973B5B419D7E06400BED80C /* UIAlerView+Completion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlerView+Completion.h"; sourceTree = "<group>"; };
+		5973B5B519D7E06400BED80C /* UIAlerView+Completion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlerView+Completion.m"; sourceTree = "<group>"; };
 		FF685CE2C49B4E3A8DCD7210 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,6 +93,7 @@
 		5973B58619D6B56700BED80C /* MyRemote */ = {
 			isa = PBXGroup;
 			children = (
+				5973B5B319D7DFD200BED80C /* Views */,
 				5973B5B019D7153100BED80C /* Resources */,
 				5973B58B19D6B56700BED80C /* AppDelegate.h */,
 				5973B58C19D6B56700BED80C /* AppDelegate.m */,
@@ -136,6 +140,15 @@
 			children = (
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		5973B5B319D7DFD200BED80C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5973B5B419D7E06400BED80C /* UIAlerView+Completion.h */,
+				5973B5B519D7E06400BED80C /* UIAlerView+Completion.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		BA5BDE6D141141859A911255 /* Frameworks */ = {
@@ -282,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5973B59319D6B56700BED80C /* SecondViewController.m in Sources */,
+				5973B5B619D7E06400BED80C /* UIAlerView+Completion.m in Sources */,
 				5973B58D19D6B56700BED80C /* AppDelegate.m in Sources */,
 				5973B59019D6B56700BED80C /* FirstViewController.m in Sources */,
 				5973B58A19D6B56700BED80C /* main.m in Sources */,
