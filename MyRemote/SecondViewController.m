@@ -168,6 +168,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
             }
         }];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
@@ -181,13 +182,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-// move 
+// move
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void):(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if(fromIndexPath.section == toIndexPath.section) {
         if(_signals && toIndexPath.row < [_signals count]) {
