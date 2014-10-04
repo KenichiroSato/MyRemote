@@ -14,7 +14,7 @@
 
 static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 
-@interface SecondViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SecondViewController ()
 {
     NSMutableArray *_signals;
     IRHTTPClient *_httpClient;
