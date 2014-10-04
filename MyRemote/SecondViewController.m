@@ -188,7 +188,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
-- (void):(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if(fromIndexPath.section == toIndexPath.section) {
         if(_signals && toIndexPath.row < [_signals count]) {
