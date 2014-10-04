@@ -66,11 +66,11 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 
 - (void)didReceiveSignal:(IRSignal *)signal
 {
-    //WZSignalLog *log = [[WZSignalLog alloc] initWithSignal:signal];
-    [_signals insertObject:signal atIndex:0];
-    [self showNameEditDialog:signal];
-    NSLog( @"signal: %@", signal );
-    
+    if (self.editing) {
+        [_signals insertObject:signal atIndex:0];
+        [self showNameEditDialog:signal];
+        NSLog( @"signal: %@", signal );
+    }
     _httpClient = nil;
     [self startCapturing];
 }
@@ -79,13 +79,13 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 {
     UIAlertView * alert = [[UIAlertView alloc]
                            initWithTitle:@"Name"
-                           message:@"Please enter the name:"
+                           message:@"Please enter signal name:"
                            delegate:nil
                            cancelButtonTitle:@"Cancel"
                            otherButtonTitles:@"OK", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField * alertTextField = [alert textFieldAtIndex:0];
-    alertTextField.placeholder = @"Enter your name";
+    alertTextField.placeholder = @"Enter signal name";
     alertTextField.text = signal.name;
     [alert showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 0) { //Cancel
@@ -97,7 +97,6 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
             [self saveSignals];
         }
     }];
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -159,12 +158,30 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
     } else {
         IRSignal *signal =_signals[indexPath.row];
         [signal sendWithCompletion:^(NSError *error) {
-            NSLog(@"sent error: %@", error);
+            if (error) {
+                UIAlertView * alert = [[UIAlertView alloc]
+                                       initWithTitle:@""
+                                       message:[error description]
+                                       delegate:nil
+                                       cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+                [alert show];
+            }
         }];
     }
 }
 
-//移動スタイル　２メソッド実装
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [_signals removeObjectAtIndex:indexPath.row];
+        [self saveSignals];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // leave here empty for now.
+    }
+}
+
+// move 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -173,8 +190,12 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if(fromIndexPath.section == toIndexPath.section) {
-        // fromIndexPathは移動前のIndex
-        // toIndexPathは移動後のIndex
+        if(_signals && toIndexPath.row < [_signals count]) {
+            id item = [_signals objectAtIndex:fromIndexPath.row];
+            [_signals removeObject:item];
+            [_signals insertObject:item atIndex:toIndexPath.row];
+            [self saveSignals];
+        }
     }
 }
 
