@@ -8,15 +8,13 @@
 
 #import "SecondViewController.h"
 #import "UIAlerView+Completion.h"
+#import "MYRSignalManager.h"
 
 #import <IRKit/IRHTTPClient.h>
 #import <IRKit/IRKit.h>
 
-static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
-
 @interface SecondViewController ()
 {
-    NSMutableArray *_signals;
     IRHTTPClient *_httpClient;
 }
 @end
@@ -25,10 +23,6 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadSignals];
-    if (!_signals) {
-        _signals = [NSMutableArray array];
-    }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
@@ -67,7 +61,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 - (void)didReceiveSignal:(IRSignal *)signal
 {
     if (self.editing) {
-        [_signals insertObject:signal atIndex:0];
+        [[MYRSignalManager sharedManager] addSignal:signal at:0];
         [self showNameEditDialog:signal];
         NSLog( @"signal: %@", signal );
     }
@@ -94,36 +88,9 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
             UITextField * alertTextField = [alertView textFieldAtIndex:0];
             signal.name = alertTextField.text;
             [self.tableView reloadData];
-            [self saveSignals];
+            [[MYRSignalManager sharedManager] saveSignals];
         }
     }];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) { //Cancel
-        [_signals removeObjectAtIndex:0];
-    } else { //OK
-        UITextField * alertTextField = [alertView textFieldAtIndex:0];
-        IRSignal *signal = [_signals objectAtIndex:0];
-        signal.name = alertTextField.text;
-        [self.tableView reloadData];
-        [self saveSignals];
-    }
-}
-
-- (void)saveSignals
-{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_signals] forKey:USER_DEFAULT_KEY_SIGNALS];
-    [ud synchronize];
-}
-
-- (void)loadSignals
-{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSData *data = [ud objectForKey:USER_DEFAULT_KEY_SIGNALS];
-    NSArray *retrievedArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    _signals = [retrievedArray mutableCopy];
 }
 
 #pragma mark - Table View
@@ -135,7 +102,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _signals.count;
+    return [[[MYRSignalManager sharedManager] signals] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -146,17 +113,17 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    IRSignal *signal = _signals[indexPath.row];
+    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     cell.textLabel.text = signal.name;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     if (self.editing) {
-        [self showNameEditDialog:_signals[indexPath.row]];
+        [self showNameEditDialog:signal];
     } else {
-        IRSignal *signal =_signals[indexPath.row];
         [signal sendWithCompletion:^(NSError *error) {
             if (error) {
                 UIAlertView * alert = [[UIAlertView alloc]
@@ -174,8 +141,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_signals removeObjectAtIndex:indexPath.row];
-        [self saveSignals];
+        [[MYRSignalManager sharedManager] removeSignalAt:indexPath.row];
         [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // leave here empty for now.
@@ -190,14 +156,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    if(fromIndexPath.section == toIndexPath.section) {
-        if(_signals && toIndexPath.row < [_signals count]) {
-            id item = [_signals objectAtIndex:fromIndexPath.row];
-            [_signals removeObject:item];
-            [_signals insertObject:item atIndex:toIndexPath.row];
-            [self saveSignals];
-        }
+    if(fromIndexPath.section != toIndexPath.section) {
+        return;
     }
+    [[MYRSignalManager sharedManager] moveSignalFrom:fromIndexPath.row To:toIndexPath.row];
 }
 
 @end

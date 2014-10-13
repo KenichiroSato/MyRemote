@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590F128219EB563700FB97A6 /* MYRSignalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 590F128119EB563700FB97A6 /* MYRSignalManager.m */; };
 		5973B58A19D6B56700BED80C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B58919D6B56700BED80C /* main.m */; };
 		5973B58D19D6B56700BED80C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B58C19D6B56700BED80C /* AppDelegate.m */; };
 		5973B59019D6B56700BED80C /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B58F19D6B56700BED80C /* FirstViewController.m */; };
@@ -31,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		54D1D2A174F54CE1B115BEE5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		590F128019EB563700FB97A6 /* MYRSignalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYRSignalManager.h; sourceTree = "<group>"; };
+		590F128119EB563700FB97A6 /* MYRSignalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYRSignalManager.m; sourceTree = "<group>"; };
 		5973B58419D6B56700BED80C /* MyRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5973B58819D6B56700BED80C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5973B58919D6B56700BED80C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -101,6 +104,8 @@
 				5973B58F19D6B56700BED80C /* FirstViewController.m */,
 				5973B59119D6B56700BED80C /* SecondViewController.h */,
 				5973B59219D6B56700BED80C /* SecondViewController.m */,
+				590F128019EB563700FB97A6 /* MYRSignalManager.h */,
+				590F128119EB563700FB97A6 /* MYRSignalManager.m */,
 				5973B59419D6B56700BED80C /* Main.storyboard */,
 				5973B59719D6B56700BED80C /* Images.xcassets */,
 				5973B59919D6B56700BED80C /* LaunchScreen.xib */,
@@ -298,6 +303,7 @@
 				5973B5B619D7E06400BED80C /* UIAlerView+Completion.m in Sources */,
 				5973B58D19D6B56700BED80C /* AppDelegate.m in Sources */,
 				5973B59019D6B56700BED80C /* FirstViewController.m in Sources */,
+				590F128219EB563700FB97A6 /* MYRSignalManager.m in Sources */,
 				5973B58A19D6B56700BED80C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
