@@ -6,14 +6,14 @@
 //  Copyright (c) 2014年 Kenichiro Sato. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "MYRAppDelegate.h"
 #import <IRKit/IRKit.h>
 
-@interface AppDelegate ()
+@interface MYRAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation MYRAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
