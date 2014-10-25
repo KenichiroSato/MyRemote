@@ -78,6 +78,9 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
 
 - (IRSignal *)signalAt:(NSInteger)index
 {
+    if (![_signals count]) {
+        return nil;
+    }
     if (index < 0 || index > _signals.count -1) {
         return nil;
     }
