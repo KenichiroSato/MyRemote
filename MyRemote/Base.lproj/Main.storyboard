@@ -75,7 +75,7 @@
                     <navigationItem key="navigationItem" title="Actions" id="2ZU-n1-p2N">
                         <barButtonItem key="leftBarButtonItem" title="Add" id="cfr-bq-twe">
                             <connections>
-                                <segue destination="AYX-uC-JPn" kind="presentation" identifier="addBatch" id="yYo-Sq-xKN"/>
+                                <segue destination="DG0-gD-QFg" kind="presentation" identifier="addBatch" id="1DY-vG-odl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -84,7 +84,7 @@
             </objects>
             <point key="canvasLocation" x="1033" y="-363"/>
         </scene>
-        <!--Add Batch View Controller-->
+        <!--New batch-->
         <scene sceneID="84t-ve-l7c">
             <objects>
                 <viewController id="AYX-uC-JPn" customClass="MYRAddBatchViewController" sceneMemberID="viewController">
@@ -96,33 +96,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2bq-zi-0D1">
-                                <rect key="frame" x="282" y="318" width="37" height="30"/>
-                                <state key="normal" title="Done">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kat-cz-ebN">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9i-4h-Chc">
+                                <rect key="frame" x="283" y="474" width="30" height="30"/>
+                                <state key="normal" title="Add">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="QXm-5E-WvU" kind="unwind" unwindAction="mainViewReturnActionForSegue:" id="2UT-pJ-Fnn"/>
-                                </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-ZR-E4M">
+                                <rect key="frame" x="155" y="152" width="300" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qri-dX-L4K">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="New batch" id="h7v-3S-b7i">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8S3-Sh-0hO">
+                                            <connections>
+                                                <segue destination="QXm-5E-WvU" kind="unwind" unwindAction="mainViewReturnActionForSegue:" id="gup-9c-L7l"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter batch name here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KdT-fq-rMl">
-                                <rect key="frame" x="194" y="205" width="212" height="30"/>
+                                <rect key="frame" x="192" y="100" width="212" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint=""/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="uEn-9m-svF"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="J9i-4h-Chc" secondAttribute="centerX" id="41l-74-ttx"/>
                             <constraint firstAttribute="centerX" secondItem="KdT-fq-rMl" secondAttribute="centerX" id="91g-86-ffN"/>
-                            <constraint firstAttribute="centerX" secondItem="2bq-zi-0D1" secondAttribute="centerX" id="D2q-GX-9AF"/>
+                            <constraint firstAttribute="centerX" secondItem="Hc7-ZR-E4M" secondAttribute="centerX" id="hdJ-QS-bw1"/>
+                            <constraint firstAttribute="centerX" secondItem="Qri-dX-L4K" secondAttribute="centerX" id="zNM-Be-8Vg"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="New batch" id="S1o-4D-rPI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ov8-hh-HZI">
+                            <connections>
+                                <segue destination="QXm-5E-WvU" kind="unwind" unwindAction="mainViewReturnActionForSegue:" id="fGA-oK-Zmp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="Ov8-hh-HZI" id="moY-5L-snQ"/>
+                        <outlet property="textField" destination="KdT-fq-rMl" id="z33-Az-n6h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaO-pI-hCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QXm-5E-WvU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1770" y="-363"/>
+            <point key="canvasLocation" x="2578" y="-363"/>
         </scene>
         <!--Action-->
         <scene sceneID="t9z-Xy-0F6">
@@ -157,6 +189,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kd3-z0-b0t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="299" y="324"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gqR-wU-BYl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DG0-gD-QFg" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Ji-wz-UEx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AYX-uC-JPn" kind="relationship" relationship="rootViewController" id="98u-GU-zMh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V3w-ah-Afa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1766" y="-363"/>
         </scene>
     </scenes>
     <resources>

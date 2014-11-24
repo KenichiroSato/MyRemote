@@ -10,39 +10,60 @@
 #import <IRKit/IRKit.h>
 #import "ESTBeaconManager.h"
 #import "MYRSignalManager.h"
+#import "MYRSignal.h"
+#import "MYRAddBatchViewController.h"
+
+static NSString * const kInsideIdentifier = @"purple";
+static NSString * const kOutsideIdentifier = @"blue";
 
 @interface FirstViewController () <IRNewPeripheralViewControllerDelegate, ESTBeaconManagerDelegate>
 
 @property (nonatomic, strong) ESTBeaconManager* beaconManager;
-@property (nonatomic, strong) ESTBeaconRegion* beaconRegion;
 
 @end
 
 @implementation FirstViewController
 {
     BOOL _isSent;
+    NSMutableArray *_batches;
+    NSDate *_timeInside;
+    NSDate *_timeOutside;
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    _batches = [[NSMutableArray alloc] init];
+    _isSent = true;
+    MYRBatchSignals *signal = [[MYRBatchSignals alloc] init];
+    signal.name = @"initial purple";
+    [_batches addObject:signal];
+    MYRBatchSignals *signal2 = [[MYRBatchSignals alloc] init];
+    signal2.name = @"initial blue";
+    [_batches addObject:signal2];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    _isSent = false;
     
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
 
-    self.beaconRegion = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_IOSBEACON_PROXIMITY_UUID identifier:@"8492E75F-4FD6-469D-B132-043FE94921D8"];
-    self.beaconRegion.notifyOnEntry = YES;
-    self.beaconRegion.notifyOnExit = YES;
+    ESTBeaconRegion* region1 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID major:37959 minor:20361 identifier:kInsideIdentifier];
+    region1.notifyOnEntry = YES;
+    region1.notifyOnExit = YES;
+    [self.beaconManager startMonitoringForRegion:region1];
+    ESTBeaconRegion* region2 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID major:12045 minor:3311 identifier:kOutsideIdentifier];
+    region2.notifyOnEntry = YES;
+    region2.notifyOnExit = YES;
+    [self.beaconManager startMonitoringForRegion:region2];
     
-    
-    [self.beaconManager startMonitoringForRegion:self.beaconRegion];
-    [self.beaconManager requestStateForRegion:self.beaconRegion];
+    //[self.beaconManager requestStateForRegion:self.beaconRegion];
 
     // Do any additional setup after loading the view, typically from a nib.
     if ([ESTBeaconManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)
@@ -78,6 +99,36 @@
     }
 }
 
+
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [_batches count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    MYRBatchSignals *batch = [_batches objectAtIndex:indexPath.row];
+    cell.textLabel.text = batch.name;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -98,10 +149,11 @@
 -(void)beaconManager:(ESTBeaconManager *)manager didDetermineState:(CLRegionState)state forRegion:(ESTBeaconRegion *)region
 {
     if (state == CLRegionStateInside) {
-        NSLog(@"inside now.");
-        [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
+        NSLog(@"inside now. %@", region.identifier);
+        [self updateDate:region];
+        //[self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
     } else if (state == CLRegionStateOutside){
-        NSLog(@"outside now.");
+        NSLog(@"outside now. %@", region.identifier);
     }
 }
 
@@ -121,20 +173,19 @@
             break;
         case CLProximityImmediate:
             NSLog(@"Immediate");
-            if (!_isSent) {
-                _isSent = true;
-                UILocalNotification *notification = [[UILocalNotification alloc] init];
-                notification.alertBody = @"distance is Immediate!";
-                notification.soundName = UILocalNotificationDefaultSoundName;
-                [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-                
-                [self sendSignalAt:0];
-                [self sendSignalAt:1];
-            }
             break;
         case CLProximityUnknown:
             NSLog(@"Unknown");
             break;
+    }
+}
+
+-(void)sendComeHomeSignal
+{
+    if (!_isSent) {
+        _isSent = true;
+        [self sendSignalAt:0];
+        [self sendSignalAt:1];
     }
 }
 
@@ -157,22 +208,61 @@
     }];
 }
 
+- (void)updateDate:(ESTBeaconRegion *)region
+{
+    if ([region.identifier isEqualToString:kInsideIdentifier]) {
+        _timeInside = [NSDate date];
+        [self updateTableCell:0 withTitle:[@"enter" stringByAppendingString:[_timeInside description]]];
+    }
+    if ([region.identifier isEqualToString:kOutsideIdentifier]) {
+        _timeOutside = [NSDate date];
+        [self updateTableCell:1 withTitle:[@"enter" stringByAppendingString:[_timeOutside description]]];
+        _isSent = false;
+    }
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = [@"enter retion! %@" stringByAppendingString:region.identifier];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+}
+
+- (void)updateTableCell:(NSInteger)index withTitle:(NSString *)title
+{
+    if (index < 0 || index > [_batches count] - 1) {
+        return;
+    }
+    MYRBatchSignals *batch = [_batches objectAtIndex:index];
+    batch.name = title;
+    [self.tableView reloadData];
+}
 
 -(void)beaconManager:(ESTBeaconManager *)manager didEnterRegion:(ESTBeaconRegion *)region
 {
-    NSLog(@"enter!!!");
-    [self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
+    NSLog(@"enter!!! minor=%d, %@, %@", [region.minor unsignedIntValue], region.identifier, region.minor);
+    [self updateDate:region];
+    if (!_timeInside || !_timeOutside) {
+        return;
+    }
+    NSComparisonResult result = [_timeInside compare:_timeOutside];
+    if (result == NSOrderedDescending) {
+        [self sendComeHomeSignal];
+    }
+    //[self.beaconManager startRangingBeaconsInRegion:self.beaconRegion];
 }
 
 -(void)beaconManager:(ESTBeaconManager *)manager didExitRegion:(ESTBeaconRegion *)region
 {
      NSLog(@"exit!!!");
-    [self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
+    if ([region.identifier isEqualToString:kInsideIdentifier]) {
+        [self updateTableCell:0 withTitle:@"exit"];
+    }
+    if ([region.identifier isEqualToString:kOutsideIdentifier]) {
+        [self updateTableCell:1 withTitle:@"exit"];
+    }
+    //[self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
 }
 
 - (IBAction)mainViewReturnActionForSegue:(UIStoryboardSegue *)segue
 {
-    
 }
 
 @end

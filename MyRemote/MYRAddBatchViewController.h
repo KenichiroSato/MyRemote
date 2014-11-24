@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MYRSignal.h"
 
 @interface MYRAddBatchViewController : UIViewController
+
+@property MYRBatchSignals *batchSignals;
 
 @end
