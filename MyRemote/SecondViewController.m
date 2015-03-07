@@ -81,6 +81,7 @@
     UITextField * alertTextField = [alert textFieldAtIndex:0];
     alertTextField.placeholder = @"Enter signal name";
     alertTextField.text = signal.name;
+    
     [alert showWithCompletion:^(UIAlertView *alertView, NSInteger buttonIndex) {
         if (buttonIndex == 0) { //Cancel
             //[_signals removeObjectAtIndex:0];

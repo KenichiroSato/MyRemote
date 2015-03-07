@@ -54,11 +54,17 @@ static NSString * const kOutsideIdentifier = @"blue";
     self.beaconManager = [[ESTBeaconManager alloc] init];
     self.beaconManager.delegate = self;
 
-    ESTBeaconRegion* region1 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID major:37959 minor:20361 identifier:kInsideIdentifier];
+    ESTBeaconRegion* region1 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
+                                                                        major:37959
+                                                                        minor:20361
+                                                                   identifier:kInsideIdentifier];
     region1.notifyOnEntry = YES;
     region1.notifyOnExit = YES;
     [self.beaconManager startMonitoringForRegion:region1];
-    ESTBeaconRegion* region2 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID major:12045 minor:3311 identifier:kOutsideIdentifier];
+    ESTBeaconRegion* region2 = [[ESTBeaconRegion alloc] initWithProximityUUID:ESTIMOTE_PROXIMITY_UUID
+                                                                        major:12045
+                                                                        minor:3311
+                                                                   identifier:kOutsideIdentifier];
     region2.notifyOnEntry = YES;
     region2.notifyOnExit = YES;
     [self.beaconManager startMonitoringForRegion:region2];
