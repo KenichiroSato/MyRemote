@@ -54,6 +54,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>To enable BLE usage, please select always</string>
+    <string>To enable BLE usage, please select Allow</string>
 </dict>
 </plist>
