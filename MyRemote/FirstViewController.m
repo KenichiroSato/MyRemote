@@ -11,7 +11,7 @@
 #import "ESTBeaconManager.h"
 #import "MYRSignalManager.h"
 #import "MYRSignal.h"
-#import "MYRAddBatchViewController.h"
+//#import "MYRAddBatchViewController.h"
 
 static NSString * const kInsideIdentifier = @"purple";
 static NSString * const kOutsideIdentifier = @"blue";
