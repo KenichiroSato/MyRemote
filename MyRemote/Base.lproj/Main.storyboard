@@ -164,6 +164,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New batch" id="S1o-4D-rPI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="19j-jP-7M2">
+                            <connections>
+                                <action selector="cancel:" destination="AYX-uC-JPn" id="3Eh-dl-Thl"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ov8-hh-HZI">
                             <connections>
                                 <segue destination="QXm-5E-WvU" kind="unwind" unwindAction="mainViewReturnActionForSegue:" id="fGA-oK-Zmp"/>

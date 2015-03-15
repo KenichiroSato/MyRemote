@@ -16,6 +16,8 @@
 static NSString * const kInsideIdentifier = @"purple";
 static NSString * const kOutsideIdentifier = @"blue";
 
+static NSString * const kComeHomeName = @"帰宅";
+
 @interface FirstViewController () <IRNewPeripheralViewControllerDelegate, ESTBeaconManagerDelegate>
 
 @property (nonatomic, strong) ESTBeaconManager* beaconManager;
@@ -78,22 +80,17 @@ static NSString * const kOutsideIdentifier = @"blue";
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
     }
     
-    /*
     // find IRKit if none is known
     if ([IRKit sharedInstance].countOfReadyPeripherals == 0) {
-        
-        //__weak WZMasterViewController *me = self;
         
         IRNewPeripheralViewController *vc = [[IRNewPeripheralViewController alloc] init];
         vc.delegate = self;
         [self presentViewController:vc
                            animated:YES
                          completion:^{
-                             //[me startCapturing];
                              NSLog(@"complete!");
                          }];
     }
-     */
 }
 
 
@@ -125,6 +122,7 @@ static NSString * const kOutsideIdentifier = @"blue";
 {
     MYRBatchSignals *batch= [[MYRBatchManager sharedManager] batchAt:indexPath.row];
     [batch operate];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
@@ -183,8 +181,12 @@ static NSString * const kOutsideIdentifier = @"blue";
 {
     if (!_isSent) {
         _isSent = true;
-        MYRBatchSignals *batch = [[MYRBatchManager sharedManager] batchAt:0];
-        [batch operate];
+        for (MYRBatchSignals *batch in [[MYRBatchManager sharedManager] batches]) {
+            if ([batch.name isEqualToString:kComeHomeName]) {
+                [batch operate];
+                return;
+            }
+        }
     }
 }
 
@@ -245,6 +247,31 @@ static NSString * const kOutsideIdentifier = @"blue";
 - (IBAction)mainViewReturnActionForSegue:(UIStoryboardSegue *)segue
 {
     [self.tableView reloadData];
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[MYRBatchManager sharedManager] removeBatchAt:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // leave here empty for now.
+    }
+}
+
+// move
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    if(fromIndexPath.section != toIndexPath.section) {
+        return;
+    }
+    [[MYRBatchManager sharedManager] moveBatchFrom:fromIndexPath.row To:toIndexPath.row];
 }
 
 @end

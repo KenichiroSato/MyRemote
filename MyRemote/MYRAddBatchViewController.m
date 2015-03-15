@@ -130,5 +130,8 @@
     [self.textField resignFirstResponder];
 }
 
+- (IBAction)cancel:(id)sender {
+    [[self parentViewController] dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end
