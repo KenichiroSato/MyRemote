@@ -15,8 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
-@property (weak, nonatomic) IBOutlet UITableView *signalTableView;
 @property (weak, nonatomic) IBOutlet UITableView *batchTableView;
+@property (weak, nonatomic) IBOutlet UIPickerView *signalPickerView;
 
 @end
 
@@ -24,10 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.signalTableView.dataSource = self;
-    self.signalTableView.delegate = self;
     self.batchTableView.dataSource = self;
     self.batchTableView.delegate = self;
+    self.signalPickerView.delegate = self;
+    self.signalPickerView.dataSource = self;
     self.batchSignals = [MYRBatchSignals new];
     // Do any additional setup after loading the view.
 }
@@ -63,32 +63,15 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (tableView == self.batchTableView) {
-        return @"new batch signals";
-    } else {
-        return @"select signal you want to add";
-    }
+    return @"new batch signals";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.batchTableView) {
-        return self.batchSignals.sendables.count;
-    } else {
-        return [[[MYRSignalManager sharedManager] signals] count];
-    }
+    return self.batchSignals.sendables.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == self.batchTableView) {
-        return [self cellForBatchTableView:tableView indexPath:indexPath];
-    } else {
-        return [self cellForSignalTableView:tableView indelPath:indexPath];
-    }
-}
-
-- (UITableViewCell *)cellForBatchTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"batchCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -100,29 +83,38 @@
     return cell;
 }
 
-- (UITableViewCell *)cellForSignalTableView:(UITableView *)tableView indelPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"signalCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
-    cell.textLabel.text = signal.name;
-    return cell;
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Picker View
+
+// returns the number of 'columns' to display.
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    if (tableView == self.signalTableView) {
-        IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
-        MYRSignal *myrSignal= [[MYRSignal alloc] initWithSignal:signal];
-        [self.batchSignals.sendables addObject:myrSignal];
-        [self.batchTableView reloadData];
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [[[MYRSignalManager sharedManager] signals] count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:row];
+    return signal.name;
+}
+
+- (IBAction)addSendable:(id)sender {
+    NSInteger index = [self.signalPickerView selectedRowInComponent:0];
+    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:index];
+    MYRSignal *myrSignal= [[MYRSignal alloc] initWithSignal:signal];
+    [self.batchSignals.sendables addObject:myrSignal];
+    [self.batchTableView reloadData];
 }
 
 - (IBAction)closeKeyborad:(id)sender

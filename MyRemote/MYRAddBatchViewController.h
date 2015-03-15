@@ -12,7 +12,9 @@
 @interface MYRAddBatchViewController : UIViewController
 <
 UITableViewDataSource,
-UITableViewDelegate
+UITableViewDelegate,
+UIPickerViewDataSource,
+UIPickerViewDelegate
 >
 
 @property MYRBatchSignals *batchSignals;
