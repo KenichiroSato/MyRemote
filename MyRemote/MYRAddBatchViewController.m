@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITableView *batchTableView;
 @property (weak, nonatomic) IBOutlet UIPickerView *signalPickerView;
+@property (nonatomic) NSMutableArray *sendables;
 
 @end
 
@@ -29,7 +30,19 @@
     self.signalPickerView.delegate = self;
     self.signalPickerView.dataSource = self;
     self.batchSignals = [MYRBatchSignals new];
+    [self initSendables];
     // Do any additional setup after loading the view.
+}
+
+- (void)initSendables
+{
+    self.sendables = [NSMutableArray array];
+    [self.sendables addObjectsFromArray:[[MYRSignalManager sharedManager] signals]];
+     NSArray *waitTimes = @[[[MYRWait alloc] initWithWaitTime:1],
+                        [[MYRWait alloc] initWithWaitTime:3],
+                        [[MYRWait alloc] initWithWaitTime:5],
+                        [[MYRWait alloc] initWithWaitTime:10]];
+    [self.sendables addObjectsFromArray:waitTimes];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,20 +113,19 @@
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return [[[MYRSignalManager sharedManager] signals] count];
+    return self.sendables.count;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:row];
-    return signal.name;
+    id<Sendable> sendable = (id<Sendable>)[self.sendables objectAtIndex:row];
+    return sendable.name;
 }
 
 - (IBAction)addSendable:(id)sender {
     NSInteger index = [self.signalPickerView selectedRowInComponent:0];
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:index];
-    MYRSignal *myrSignal= [[MYRSignal alloc] initWithSignal:signal];
-    [self.batchSignals.sendables addObject:myrSignal];
+    id<Sendable> sendable = [self.sendables objectAtIndex:index];
+    [self.batchSignals.sendables addObject:sendable];
     [self.batchTableView reloadData];
 }
 

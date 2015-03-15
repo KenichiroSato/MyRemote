@@ -190,25 +190,6 @@ static NSString * const kComeHomeName = @"帰宅";
     }
 }
 
--(void)sendSignalAt:(NSInteger)index
-{
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:index];
-    [signal sendWithCompletion:^(NSError *error) {
-        if (error) {
-            UIAlertView * alert = [[UIAlertView alloc]
-                                   initWithTitle:@""
-                                   message:[error description]
-                                   delegate:nil
-                                   cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-            [alert show];
-            _isSent = false;
-        } else {
-            NSLog(@"sent!!");
-            
-        }
-    }];
-}
-
 - (void)updateDate:(ESTBeaconRegion *)region
 {
     if ([region.identifier isEqualToString:kInsideIdentifier]) {

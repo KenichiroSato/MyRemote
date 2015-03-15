@@ -12,12 +12,12 @@
 
 static NSString *const key_signal = @"signal";
 
-- (id)initWithSignal:(IRSignal *)signal
+- (id)initWithSignal:(IRSignal *)irSignal
 {
     self = [super init];
     if (self != nil)
     {
-        self.signal = signal;
+        self.irSignal = irSignal;
     }
     return self;
 }
@@ -25,7 +25,7 @@ static NSString *const key_signal = @"signal";
 
 - (void)operate
 {
-    [_signal sendWithCompletion:^(NSError *error) {
+    [self.irSignal sendWithCompletion:^(NSError *error) {
         if (error) {
             UIAlertView * alert = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -37,19 +37,20 @@ static NSString *const key_signal = @"signal";
     }];
 }
 
-- (NSString *)name
+- (void)operateWithCompletion:(void (^)(NSError *error))completion;
 {
-    return self.signal.name;
+    [self.irSignal sendWithCompletion:completion];
 }
 
+
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_signal forKey:key_signal];
+    [aCoder encodeObject:_irSignal forKey:key_signal];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self){
-        _signal = [aDecoder decodeObjectForKey:key_signal];
+        _irSignal = [aDecoder decodeObjectForKey:key_signal];
     }
     return self;
 }
@@ -93,4 +94,45 @@ static NSString *const key_sendables = @"sendables";
 }
 
 @end
+
+
+@implementation MYRWait
+
+static NSString *const key_wait_time = @"wait_time";
+
+- (id)initWithWaitTime:(NSInteger)waitTime
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.waitTime = waitTime;
+    }
+    return self;
+}
+
+- (void)operate
+{
+    [NSThread sleepForTimeInterval:self.waitTime];
+}
+
+- (NSString *)name
+{
+    return [NSString stringWithFormat:@"%ld秒ウェイト", (long)self.waitTime];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:_waitTime forKey:key_wait_time];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self){
+        _waitTime = [aDecoder decodeIntegerForKey:key_wait_time];
+    }
+    return self;
+}
+
+
+@end
+
 

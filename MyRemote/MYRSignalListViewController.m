@@ -58,9 +58,10 @@
     }
 }
 
-- (void)didReceiveSignal:(IRSignal *)signal
+- (void)didReceiveSignal:(IRSignal *)irSignal
 {
     if (self.editing) {
+        MYRSignal *signal = [[MYRSignal alloc] initWithSignal:irSignal];
         [[MYRSignalManager sharedManager] addSignal:signal at:0];
         [self showNameEditDialog:signal];
         NSLog( @"signal: %@", signal );
@@ -69,7 +70,7 @@
     [self startCapturing];
 }
 
-- (void)showNameEditDialog:(IRSignal *)signal
+- (void)showNameEditDialog:(MYRSignal *)signal
 {
     UIAlertView * alert = [[UIAlertView alloc]
                            initWithTitle:@"Name"
@@ -114,18 +115,18 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+    MYRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     cell.textLabel.text = signal.name;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+    MYRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     if (self.editing) {
         [self showNameEditDialog:signal];
     } else {
-        [signal sendWithCompletion:^(NSError *error) {
+        [signal operateWithCompletion:^(NSError *error) {
             if (error) {
                 UIAlertView * alert = [[UIAlertView alloc]
                                        initWithTitle:@""

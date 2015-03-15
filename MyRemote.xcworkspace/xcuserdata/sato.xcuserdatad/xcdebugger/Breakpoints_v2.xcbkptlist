@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRSignalListViewController.m"
-            timestampString = "447406418.910281"
+            timestampString = "448127172.487103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRSignal.m"
-            timestampString = "448107852.412752"
+            timestampString = "448130204.068685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
             landmarkName = "-operate"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRAddBatchViewController.m"
-            timestampString = "448117146.114813"
+            timestampString = "448127231.986944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRAddBatchViewController.m"
-            timestampString = "448117146.114813"
+            timestampString = "448127231.986944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "-prepareForSegue:sender:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRBatchListViewController.m"
-            timestampString = "448115613.311741"
+            timestampString = "448130204.068685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295">
+            startingLineNumber = "296"
+            endingLineNumber = "296">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -168,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRAddBatchViewController.m"
-            timestampString = "448117146.114813"
+            timestampString = "448127231.986944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -184,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRBatchListViewController.m"
-            timestampString = "448115613.311741"
+            timestampString = "448130204.068685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "-mainViewReturnActionForSegue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRAddBatchViewController.m"
-            timestampString = "448118774.531237"
+            timestampString = "448127231.986944"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "-closeKeyborad:"
             landmarkType = "5">
          </BreakpointContent>
@@ -294,11 +294,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRBatchListViewController.m"
-            timestampString = "448115613.311741"
+            timestampString = "448130204.068685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "-beaconManager:didEnterRegion:"
             landmarkType = "5">
          </BreakpointContent>
@@ -342,11 +342,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MyRemote/MYRBatchListViewController.m"
-            timestampString = "448115613.311741"
+            timestampString = "448130204.068685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "-beaconManager:didEnterRegion:"
             landmarkType = "5">
          </BreakpointContent>

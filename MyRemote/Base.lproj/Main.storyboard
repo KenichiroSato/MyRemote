@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -137,7 +138,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter batch name here" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KdT-fq-rMl">
-                                <rect key="frame" x="175" y="72" width="251" height="40"/>
+                                <rect key="frame" x="175" y="72" width="251" height="30"/>
                                 <accessibility key="accessibilityConfiguration" hint=""/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -148,7 +149,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Iba-vR-HmT" secondAttribute="trailing" id="EIh-yD-qRJ"/>
                             <constraint firstAttribute="centerX" secondItem="KdT-fq-rMl" secondAttribute="centerX" id="UdO-FA-hYa"/>
+                            <constraint firstItem="Iba-vR-HmT" firstAttribute="leading" secondItem="CDU-jE-MUj" secondAttribute="leadingMargin" id="hpW-xa-N3r"/>
                             <constraint firstAttribute="centerX" secondItem="Ioy-eE-yD6" secondAttribute="centerX" id="jcd-lZ-pTX"/>
                             <constraint firstAttribute="centerX" secondItem="Iba-vR-HmT" secondAttribute="centerX" id="qT9-3F-F4X"/>
                         </constraints>
