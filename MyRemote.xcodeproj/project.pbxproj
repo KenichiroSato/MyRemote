@@ -19,6 +19,7 @@
 		5973B59B19D6B56700BED80C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5973B59919D6B56700BED80C /* LaunchScreen.xib */; };
 		5973B5A719D6B56800BED80C /* MyRemoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B5A619D6B56800BED80C /* MyRemoteTests.m */; };
 		5973B5B619D7E06400BED80C /* UIAlerView+Completion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5973B5B519D7E06400BED80C /* UIAlerView+Completion.m */; };
+		599016F91AB57084004394F9 /* MYRBatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 599016F81AB57084004394F9 /* MYRBatchManager.m */; };
 		59BB3AAF19FBF983000A3669 /* MYRSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB3AAE19FBF983000A3669 /* MYRSignal.m */; };
 		59BB3AB219FD4B05000A3669 /* MYRAddBatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB3AB119FD4B05000A3669 /* MYRAddBatchViewController.m */; };
 		9198327224984329B3AFEA1E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF685CE2C49B4E3A8DCD7210 /* libPods.a */; };
@@ -66,6 +67,8 @@
 		5973B5A619D6B56800BED80C /* MyRemoteTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyRemoteTests.m; sourceTree = "<group>"; };
 		5973B5B419D7E06400BED80C /* UIAlerView+Completion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlerView+Completion.h"; sourceTree = "<group>"; };
 		5973B5B519D7E06400BED80C /* UIAlerView+Completion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlerView+Completion.m"; sourceTree = "<group>"; };
+		599016F71AB57084004394F9 /* MYRBatchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYRBatchManager.h; sourceTree = "<group>"; };
+		599016F81AB57084004394F9 /* MYRBatchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYRBatchManager.m; sourceTree = "<group>"; };
 		59BB3AAD19FBF983000A3669 /* MYRSignal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYRSignal.h; sourceTree = "<group>"; };
 		59BB3AAE19FBF983000A3669 /* MYRSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYRSignal.m; sourceTree = "<group>"; };
 		59BB3AB019FD4B05000A3669 /* MYRAddBatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYRAddBatchViewController.h; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 				5973B59219D6B56700BED80C /* SecondViewController.m */,
 				590F128019EB563700FB97A6 /* MYRSignalManager.h */,
 				590F128119EB563700FB97A6 /* MYRSignalManager.m */,
+				599016F71AB57084004394F9 /* MYRBatchManager.h */,
+				599016F81AB57084004394F9 /* MYRBatchManager.m */,
 				5973B59419D6B56700BED80C /* Main.storyboard */,
 				59BB3AB019FD4B05000A3669 /* MYRAddBatchViewController.h */,
 				59BB3AB119FD4B05000A3669 /* MYRAddBatchViewController.m */,
@@ -351,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				599016F91AB57084004394F9 /* MYRBatchManager.m in Sources */,
 				59BB3AB219FD4B05000A3669 /* MYRAddBatchViewController.m in Sources */,
 				5973B59319D6B56700BED80C /* SecondViewController.m in Sources */,
 				5973B5B619D7E06400BED80C /* UIAlerView+Completion.m in Sources */,

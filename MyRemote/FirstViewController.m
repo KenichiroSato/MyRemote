@@ -10,8 +10,8 @@
 #import <IRKit/IRKit.h>
 #import "ESTBeaconManager.h"
 #import "MYRSignalManager.h"
+#import "MYRBatchManager.h"
 #import "MYRSignal.h"
-//#import "MYRAddBatchViewController.h"
 
 static NSString * const kInsideIdentifier = @"purple";
 static NSString * const kOutsideIdentifier = @"blue";
@@ -25,7 +25,6 @@ static NSString * const kOutsideIdentifier = @"blue";
 @implementation FirstViewController
 {
     BOOL _isSent;
-    NSMutableArray *_batches;
     NSDate *_timeInside;
     NSDate *_timeOutside;
 }
@@ -36,15 +35,6 @@ static NSString * const kOutsideIdentifier = @"blue";
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    _batches = [[NSMutableArray alloc] init];
-    _isSent = true;
-    MYRBatchSignals *signal = [[MYRBatchSignals alloc] init];
-    signal.name = @"initial purple";
-    [_batches addObject:signal];
-    MYRBatchSignals *signal2 = [[MYRBatchSignals alloc] init];
-    signal2.name = @"initial blue";
-    [_batches addObject:signal2];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,7 +78,7 @@ static NSString * const kOutsideIdentifier = @"blue";
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
     }
     
-    
+    /*
     // find IRKit if none is known
     if ([IRKit sharedInstance].countOfReadyPeripherals == 0) {
         
@@ -103,6 +93,7 @@ static NSString * const kOutsideIdentifier = @"blue";
                              NSLog(@"complete!");
                          }];
     }
+     */
 }
 
 
@@ -115,7 +106,7 @@ static NSString * const kOutsideIdentifier = @"blue";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_batches count];
+    return [[[MYRBatchManager sharedManager] batches] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,13 +116,15 @@ static NSString * const kOutsideIdentifier = @"blue";
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    MYRBatchSignals *batch = [_batches objectAtIndex:indexPath.row];
+    MYRBatchSignals *batch = [[[MYRBatchManager sharedManager] batches] objectAtIndex:indexPath.row];
     cell.textLabel.text = batch.name;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MYRBatchSignals *batch= [[MYRBatchManager sharedManager] batchAt:indexPath.row];
+    [batch operate];
 }
 
 
@@ -190,8 +183,8 @@ static NSString * const kOutsideIdentifier = @"blue";
 {
     if (!_isSent) {
         _isSent = true;
-        [self sendSignalAt:0];
-        [self sendSignalAt:1];
+        MYRBatchSignals *batch = [[MYRBatchManager sharedManager] batchAt:0];
+        [batch operate];
     }
 }
 
@@ -218,27 +211,15 @@ static NSString * const kOutsideIdentifier = @"blue";
 {
     if ([region.identifier isEqualToString:kInsideIdentifier]) {
         _timeInside = [NSDate date];
-        [self updateTableCell:0 withTitle:[@"enter" stringByAppendingString:[_timeInside description]]];
     }
     if ([region.identifier isEqualToString:kOutsideIdentifier]) {
         _timeOutside = [NSDate date];
-        [self updateTableCell:1 withTitle:[@"enter" stringByAppendingString:[_timeOutside description]]];
         _isSent = false;
     }
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = [@"enter retion! %@" stringByAppendingString:region.identifier];
     notification.soundName = UILocalNotificationDefaultSoundName;
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-}
-
-- (void)updateTableCell:(NSInteger)index withTitle:(NSString *)title
-{
-    if (index < 0 || index > [_batches count] - 1) {
-        return;
-    }
-    MYRBatchSignals *batch = [_batches objectAtIndex:index];
-    batch.name = title;
-    [self.tableView reloadData];
 }
 
 -(void)beaconManager:(ESTBeaconManager *)manager didEnterRegion:(ESTBeaconRegion *)region
@@ -258,17 +239,12 @@ static NSString * const kOutsideIdentifier = @"blue";
 -(void)beaconManager:(ESTBeaconManager *)manager didExitRegion:(ESTBeaconRegion *)region
 {
      NSLog(@"exit!!!");
-    if ([region.identifier isEqualToString:kInsideIdentifier]) {
-        [self updateTableCell:0 withTitle:@"exit"];
-    }
-    if ([region.identifier isEqualToString:kOutsideIdentifier]) {
-        [self updateTableCell:1 withTitle:@"exit"];
-    }
     //[self.beaconManager stopRangingBeaconsInRegion:self.beaconRegion];
 }
 
 - (IBAction)mainViewReturnActionForSegue:(UIStoryboardSegue *)segue
 {
+    [self.tableView reloadData];
 }
 
 @end

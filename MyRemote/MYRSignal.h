@@ -17,13 +17,14 @@
 
 @end
 
-@interface MYRSignal : NSObject <Sendable>
+@interface MYRSignal : NSObject <Sendable, NSCoding>
 
 @property (nonatomic, strong) IRSignal* signal;
-
+- (id)initWithSignal:(IRSignal *)signal;
+- (NSString *)name;
 @end
 
-@interface MYRBatchSignals : NSObject <Sendable>
+@interface MYRBatchSignals : NSObject <Sendable, NSCoding>
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSMutableArray *sendables;

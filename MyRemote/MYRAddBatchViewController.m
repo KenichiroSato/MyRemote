@@ -8,6 +8,7 @@
 
 #import "MYRAddBatchViewController.h"
 #import "MYRSignalManager.h"
+#import "MYRBatchManager.h"
 #import "MYRSignal.h"
 
 @interface MYRAddBatchViewController ()
@@ -48,8 +49,8 @@
         return;
     }
     if (self.textField.text.length > 0) {
-        self.batchSignals = [[MYRBatchSignals alloc] init];
         self.batchSignals.name = self.textField.text;
+        [[MYRBatchManager sharedManager] addBatch:self.batchSignals at:0];
     }
 }
 
@@ -94,7 +95,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    IRSignal *signal = (IRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
+    MYRSignal *signal = (MYRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
     cell.textLabel.text = signal.name;
     return cell;
 }
@@ -117,10 +118,16 @@
 {
     if (tableView == self.signalTableView) {
         IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
-        [self.batchSignals.sendables addObject:signal];
+        MYRSignal *myrSignal= [[MYRSignal alloc] initWithSignal:signal];
+        [self.batchSignals.sendables addObject:myrSignal];
         [self.batchTableView reloadData];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (IBAction)closeKeyborad:(id)sender
+{
+    [self.textField resignFirstResponder];
 }
 
 
