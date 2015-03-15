@@ -10,6 +10,10 @@
 #import "MYRSignal.h"
 
 @interface MYRAddBatchViewController : UIViewController
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
 
 @property MYRBatchSignals *batchSignals;
 

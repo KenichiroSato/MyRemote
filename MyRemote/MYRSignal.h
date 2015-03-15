@@ -26,6 +26,6 @@
 @interface MYRBatchSignals : NSObject <Sendable>
 
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray *sendables;
+@property (strong, nonatomic) NSMutableArray *sendables;
 
 @end

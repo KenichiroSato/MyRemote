@@ -28,6 +28,16 @@
 
 @implementation MYRBatchSignals
 
+- (id)init
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.sendables = [NSMutableArray new];
+    }
+    return self;
+}
+
 - (void)operate
 {
     for (id<Sendable> sendable in _sendables) {

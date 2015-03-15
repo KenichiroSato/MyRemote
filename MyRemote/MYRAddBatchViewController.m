@@ -7,11 +7,15 @@
 //
 
 #import "MYRAddBatchViewController.h"
+#import "MYRSignalManager.h"
+#import "MYRSignal.h"
 
 @interface MYRAddBatchViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UITableView *signalTableView;
+@property (weak, nonatomic) IBOutlet UITableView *batchTableView;
 
 @end
 
@@ -19,6 +23,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.signalTableView.dataSource = self;
+    self.signalTableView.delegate = self;
+    self.batchTableView.dataSource = self;
+    self.batchTableView.delegate = self;
+    self.batchSignals = [MYRBatchSignals new];
     // Do any additional setup after loading the view.
 }
 
@@ -44,6 +53,75 @@
     }
 }
 
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (tableView == self.batchTableView) {
+        return @"new batch signals";
+    } else {
+        return @"select signal you want to add";
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (tableView == self.batchTableView) {
+        return self.batchSignals.sendables.count;
+    } else {
+        return [[[MYRSignalManager sharedManager] signals] count];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.batchTableView) {
+        return [self cellForBatchTableView:tableView indexPath:indexPath];
+    } else {
+        return [self cellForSignalTableView:tableView indelPath:indexPath];
+    }
+}
+
+- (UITableViewCell *)cellForBatchTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"batchCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    IRSignal *signal = (IRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
+    cell.textLabel.text = signal.name;
+    return cell;
+}
+
+- (UITableViewCell *)cellForSignalTableView:(UITableView *)tableView indelPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"signalCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+    cell.textLabel.text = signal.name;
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.signalTableView) {
+        IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+        [self.batchSignals.sendables addObject:signal];
+        [self.batchTableView reloadData];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 
 
 @end
