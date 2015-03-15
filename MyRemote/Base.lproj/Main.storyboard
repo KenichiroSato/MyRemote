@@ -28,7 +28,7 @@
         <!--Signals-->
         <scene sceneID="l94-Ln-Exc">
             <objects>
-                <tableViewController id="JXl-GR-5SX" customClass="SecondViewController" sceneMemberID="viewController">
+                <tableViewController id="JXl-GR-5SX" customClass="MYRSignalListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="clx-od-iJi">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
         <!--Actions-->
         <scene sceneID="EBu-La-Zvn">
             <objects>
-                <tableViewController id="OaN-kK-Xrd" customClass="FirstViewController" sceneMemberID="viewController">
+                <tableViewController id="OaN-kK-Xrd" customClass="MYRBatchListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="gae-m1-Z4D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

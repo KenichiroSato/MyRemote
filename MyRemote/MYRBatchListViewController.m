@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Kenichiro Sato. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "MYRBatchListViewController.h"
 #import <IRKit/IRKit.h>
 #import "ESTBeaconManager.h"
 #import "MYRSignalManager.h"
@@ -18,13 +18,13 @@ static NSString * const kOutsideIdentifier = @"blue";
 
 static NSString * const kComeHomeName = @"帰宅";
 
-@interface FirstViewController () <IRNewPeripheralViewControllerDelegate, ESTBeaconManagerDelegate>
+@interface MYRBatchListViewController () <IRNewPeripheralViewControllerDelegate, ESTBeaconManagerDelegate>
 
 @property (nonatomic, strong) ESTBeaconManager* beaconManager;
 
 @end
 
-@implementation FirstViewController
+@implementation MYRBatchListViewController
 {
     BOOL _isSent;
     NSDate *_timeInside;

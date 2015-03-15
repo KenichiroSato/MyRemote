@@ -6,20 +6,20 @@
 //  Copyright (c) 2014年 Kenichiro Sato. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "MYRSignalListViewController.h"
 #import "UIAlerView+Completion.h"
 #import "MYRSignalManager.h"
 
 #import <IRKit/IRHTTPClient.h>
 #import <IRKit/IRKit.h>
 
-@interface SecondViewController ()
+@interface MYRSignalListViewController ()
 {
     IRHTTPClient *_httpClient;
 }
 @end
 
-@implementation SecondViewController
+@implementation MYRSignalListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +48,7 @@
         return;
     }
     
-    __weak SecondViewController *me = self;
+    __weak MYRSignalListViewController *me = self;
     if (!_httpClient) {
         _httpClient = [IRHTTPClient waitForSignalWithCompletion:^(NSHTTPURLResponse *res, IRSignal *signal, NSError *error) {
             if (signal) {
