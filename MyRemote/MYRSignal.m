@@ -11,6 +11,7 @@
 @implementation MYRSignal
 
 static NSString *const key_signal = @"signal";
+static NSString *const key_name = @"name";
 
 - (id)initWithSignal:(IRSignal *)irSignal
 {
@@ -45,12 +46,14 @@ static NSString *const key_signal = @"signal";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_irSignal forKey:key_signal];
+    [aCoder encodeObject:_name forKey:key_name];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self){
         _irSignal = [aDecoder decodeObjectForKey:key_signal];
+        _name = [aDecoder decodeObjectForKey:key_name];
     }
     return self;
 }
@@ -59,7 +62,6 @@ static NSString *const key_signal = @"signal";
 
 @implementation MYRBatchSignals
 
-static NSString *const key_name = @"name";
 static NSString *const key_sendables = @"sendables";
 
 - (id)init
