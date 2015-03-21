@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UITableViewController
+@interface MYRSignalListViewController : UITableViewController
 
 @end
 

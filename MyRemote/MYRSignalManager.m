@@ -49,7 +49,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
     _signals = [retrievedArray mutableCopy];
 }
 
-- (void)addSignal:(IRSignal *)signal at:(NSInteger)index
+- (void)addSignal:(MYRSignal *)signal at:(NSInteger)index
 {
     [_signals insertObject:signal atIndex:index];
     [self saveSignals];
@@ -76,7 +76,7 @@ static NSString * const USER_DEFAULT_KEY_SIGNALS = @"signals";
     [self saveSignals];
 }
 
-- (IRSignal *)signalAt:(NSInteger)index
+- (MYRSignal *)signalAt:(NSInteger)index
 {
     if (![_signals count]) {
         return nil;

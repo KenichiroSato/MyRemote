@@ -10,9 +10,23 @@
 
 @implementation MYRSignal
 
+static NSString *const key_signal = @"signal";
+static NSString *const key_name = @"name";
+
+- (id)initWithSignal:(IRSignal *)irSignal
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.irSignal = irSignal;
+    }
+    return self;
+}
+
+
 - (void)operate
 {
-    [_signal sendWithCompletion:^(NSError *error) {
+    [self.irSignal sendWithCompletion:^(NSError *error) {
         if (error) {
             UIAlertView * alert = [[UIAlertView alloc]
                                    initWithTitle:@""
@@ -24,9 +38,55 @@
     }];
 }
 
+- (void)operateWithCompletion:(void (^)(NSError *error))completion;
+{
+    [self.irSignal sendWithCompletion:completion];
+}
+
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_irSignal forKey:key_signal];
+    [aCoder encodeObject:_name forKey:key_name];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self){
+        _irSignal = [aDecoder decodeObjectForKey:key_signal];
+        _name = [aDecoder decodeObjectForKey:key_name];
+    }
+    return self;
+}
+
 @end
 
 @implementation MYRBatchSignals
+
+static NSString *const key_sendables = @"sendables";
+
+- (id)init
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.sendables = [NSMutableArray new];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_name forKey:key_name];
+    [aCoder encodeObject:_sendables forKey:key_sendables];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self){
+        _name = [aDecoder decodeObjectForKey:key_name];
+        _sendables = [aDecoder decodeObjectForKey:key_sendables];
+    }
+    return self;
+}
 
 - (void)operate
 {
@@ -36,4 +96,45 @@
 }
 
 @end
+
+
+@implementation MYRWait
+
+static NSString *const key_wait_time = @"wait_time";
+
+- (id)initWithWaitTime:(NSInteger)waitTime
+{
+    self = [super init];
+    if (self != nil)
+    {
+        self.waitTime = waitTime;
+    }
+    return self;
+}
+
+- (void)operate
+{
+    [NSThread sleepForTimeInterval:self.waitTime];
+}
+
+- (NSString *)name
+{
+    return [NSString stringWithFormat:@"%ld秒ウェイト", (long)self.waitTime];
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeInteger:_waitTime forKey:key_wait_time];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self){
+        _waitTime = [aDecoder decodeIntegerForKey:key_wait_time];
+    }
+    return self;
+}
+
+
+@end
+
 

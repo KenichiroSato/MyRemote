@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class IRSignal;
+#import "MYRSignal.h"
 
 @interface MYRSignalManager : NSObject
 
@@ -16,9 +16,9 @@
 + (id)sharedManager;
 - (void)saveSignals;
 - (void)loadSignals;
-- (void)addSignal:(IRSignal *)signal at:(NSInteger)index;
+- (void)addSignal:(MYRSignal *)signal at:(NSInteger)index;
 - (void)removeSignalAt:(NSInteger)index;
 - (void)moveSignalFrom:(NSInteger)from To:(NSInteger)to;
-- (IRSignal *)signalAt:(NSInteger)index;
+- (MYRSignal *)signalAt:(NSInteger)index;
 
 @end
