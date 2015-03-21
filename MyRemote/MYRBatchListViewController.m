@@ -7,6 +7,7 @@
 //
 
 #import "MYRBatchListViewController.h"
+#import "MYRAddBatchViewController.h"
 #import <IRKit/IRKit.h>
 #import "ESTBeaconManager.h"
 #import "MYRSignalManager.h"
@@ -121,8 +122,21 @@ static NSString * const kComeHomeName = @"帰宅";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MYRBatchSignals *batch= [[MYRBatchManager sharedManager] batchAt:indexPath.row];
-    [batch operate];
+    if (self.editing) {
+        [self showEditBatchSignal:batch];
+    } else {
+        [batch operate];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+- (void)showEditBatchSignal:(MYRBatchSignals *)signals
+{
+    MYRAddBatchViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MYRAdd"];
+    controller.batchSignals = signals;
+    [self.navigationController presentViewController:controller
+                                            animated:YES
+                                          completion:nil];
 }
 
 

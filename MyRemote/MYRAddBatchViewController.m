@@ -29,9 +29,17 @@
     self.batchTableView.delegate = self;
     self.signalPickerView.delegate = self;
     self.signalPickerView.dataSource = self;
-    self.batchSignals = [MYRBatchSignals new];
+    if (!self.batchSignals) {
+        self.batchSignals = [MYRBatchSignals new];
+    }
     [self initSendables];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.textField.text = self.batchSignals.name;
 }
 
 - (void)initSendables
