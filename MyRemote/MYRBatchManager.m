@@ -37,7 +37,8 @@ static NSString * const USER_DEFAULT_KEY_BATCHES = @"batches";
 - (void)saveBatches
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_batches] forKey:USER_DEFAULT_KEY_BATCHES];
+    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_batches]
+           forKey:USER_DEFAULT_KEY_BATCHES];
     [ud synchronize];
 }
 
