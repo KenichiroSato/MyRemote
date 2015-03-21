@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *batchTableView;
 @property (weak, nonatomic) IBOutlet UIPickerView *signalPickerView;
 @property (nonatomic) NSMutableArray *sendables;
+@property BOOL isEditing;
 
 @end
 
@@ -30,6 +31,9 @@
     self.signalPickerView.dataSource = self;
     if (!self.batchSignals) {
         self.batchSignals = [MYRBatchSignals new];
+        self.isEditing = NO;
+    } else {
+        self.isEditing = YES;
     }
     [self initSendables];
     // Do any additional setup after loading the view.
@@ -140,7 +144,11 @@ numberOfRowsInComponent:(NSInteger)component
 - (IBAction)doneButtonSelected:(id)sender {
     if (self.textField.text.length > 0) {
         self.batchSignals.name = self.textField.text;
-        [[MYRBatchManager sharedManager] addBatch:self.batchSignals at:0];
+        if (self.isEditing) {
+            [[MYRBatchManager sharedManager] saveBatches];
+        } else {
+            [[MYRBatchManager sharedManager] addBatch:self.batchSignals at:0];
+        }
     }
     self.batchSignals = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
