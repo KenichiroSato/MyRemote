@@ -40,6 +40,12 @@ static NSString * const kComeHomeName = @"帰宅";
     self.tableView.dataSource = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -132,11 +138,14 @@ static NSString * const kComeHomeName = @"帰宅";
 
 - (void)showEditBatchSignal:(MYRBatchSignals *)signals
 {
-    MYRAddBatchViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MYRAdd"];
+    [self performSegueWithIdentifier:kEditBatchSegueIdentifier sender:self];
+    /*
+     MYRAddBatchViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MYRAdd"];
     controller.batchSignals = signals;
     [self.navigationController presentViewController:controller
                                             animated:YES
                                           completion:nil];
+     */
 }
 
 
@@ -267,6 +276,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         return;
     }
     [[MYRBatchManager sharedManager] moveBatchFrom:fromIndexPath.row To:toIndexPath.row];
+}
+
+#pragma mark - Segue
+static NSString * const kEditBatchSegueIdentifier = @"editBatch";
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:kEditBatchSegueIdentifier]) {
+        MYRAddBatchViewController *controller = segue.destinationViewController;
+        NSInteger selectedIndex = [self.tableView indexPathForSelectedRow].row;
+        MYRBatchSignals *selected = [[MYRBatchManager sharedManager] batchAt:selectedIndex];
+        controller.batchSignals = selected;
+    }
 }
 
 @end

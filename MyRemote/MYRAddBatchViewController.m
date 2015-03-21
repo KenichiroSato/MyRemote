@@ -13,7 +13,6 @@
 
 @interface MYRAddBatchViewController ()
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITableView *batchTableView;
 @property (weak, nonatomic) IBOutlet UIPickerView *signalPickerView;
@@ -59,21 +58,6 @@
 }
 
 
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if (sender != self.doneButton) {
-        NSLog(@"not addButton");
-        return;
-    }
-    if (self.textField.text.length > 0) {
-        self.batchSignals.name = self.textField.text;
-        [[MYRBatchManager sharedManager] addBatch:self.batchSignals at:0];
-    }
-}
 
 #pragma mark - Table View
 
@@ -142,8 +126,17 @@
     [self.textField resignFirstResponder];
 }
 
-- (IBAction)cancel:(id)sender {
-    [[self parentViewController] dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)cancelButtonSelected:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)doneButtonSelected:(id)sender {
+    if (self.textField.text.length > 0) {
+        self.batchSignals.name = self.textField.text;
+        [[MYRBatchManager sharedManager] addBatch:self.batchSignals at:0];
+    }
+    self.batchSignals = nil;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

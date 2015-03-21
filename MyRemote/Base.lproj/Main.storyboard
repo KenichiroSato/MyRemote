@@ -66,6 +66,9 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BUA-AO-0tt" id="E6F-os-gLf">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="AYX-uC-JPn" kind="presentation" identifier="editBatch" id="4Ia-yO-F2P"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -76,7 +79,7 @@
                     <navigationItem key="navigationItem" title="Actions" id="2ZU-n1-p2N">
                         <barButtonItem key="leftBarButtonItem" title="Add" id="kJh-L0-L8p">
                             <connections>
-                                <segue destination="DG0-gD-QFg" kind="presentation" id="BTQ-qj-sEc"/>
+                                <segue destination="AYX-uC-JPn" kind="presentation" id="EG2-UH-dkc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -97,13 +100,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qri-dX-L4K">
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qri-dX-L4K">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="New batch" id="h7v-3S-b7i">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="sFT-rX-SEf">
+                                            <connections>
+                                                <action selector="cancelButtonSelected:" destination="AYX-uC-JPn" id="s76-W5-trX"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8S3-Sh-0hO">
                                             <connections>
-                                                <segue destination="QXm-5E-WvU" kind="unwind" unwindAction="mainViewReturnActionForSegue:" id="gup-9c-L7l"/>
+                                                <action selector="doneButtonSelected:" destination="AYX-uC-JPn" id="RQw-Uv-OFt"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -150,6 +158,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="Iba-vR-HmT" secondAttribute="trailing" id="EIh-yD-qRJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qri-dX-L4K" secondAttribute="trailing" constant="-16" id="ERj-Kp-v48"/>
+                            <constraint firstItem="Qri-dX-L4K" firstAttribute="leading" secondItem="CDU-jE-MUj" secondAttribute="leadingMargin" constant="-16" id="Juz-IA-90Y"/>
                             <constraint firstAttribute="centerX" secondItem="KdT-fq-rMl" secondAttribute="centerX" id="UdO-FA-hYa"/>
                             <constraint firstItem="Iba-vR-HmT" firstAttribute="leading" secondItem="CDU-jE-MUj" secondAttribute="leadingMargin" id="hpW-xa-N3r"/>
                             <constraint firstAttribute="centerX" secondItem="Ioy-eE-yD6" secondAttribute="centerX" id="jcd-lZ-pTX"/>
@@ -157,9 +167,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New batch" id="S1o-4D-rPI">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="19j-jP-7M2">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="OKL-iE-aMr">
                             <connections>
-                                <action selector="cancel:" destination="AYX-uC-JPn" id="3Eh-dl-Thl"/>
+                                <action selector="cancelButtonSelected:" destination="AYX-uC-JPn" id="suT-tp-fa4"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Ov8-hh-HZI">
@@ -170,7 +180,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="batchTableView" destination="SyP-hc-dWa" id="Iof-CW-aLa"/>
-                        <outlet property="doneButton" destination="Ov8-hh-HZI" id="moY-5L-snQ"/>
                         <outlet property="signalPickerView" destination="Iba-vR-HmT" id="Al2-7K-ekb"/>
                         <outlet property="textField" destination="KdT-fq-rMl" id="z33-Az-n6h"/>
                     </connections>
@@ -178,7 +187,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaO-pI-hCu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QXm-5E-WvU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2615" y="-363"/>
+            <point key="canvasLocation" x="1847" y="-363"/>
         </scene>
         <!--Action-->
         <scene sceneID="t9z-Xy-0F6">
@@ -214,27 +223,12 @@
             </objects>
             <point key="canvasLocation" x="299" y="324"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="gqR-wU-BYl">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DG0-gD-QFg" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Ji-wz-UEx">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="AYX-uC-JPn" kind="relationship" relationship="rootViewController" id="98u-GU-zMh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="V3w-ah-Afa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1766" y="-363"/>
-        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4Ia-yO-F2P"/>
+    </inferredMetricsTieBreakers>
 </document>
