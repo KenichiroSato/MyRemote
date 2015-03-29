@@ -22,6 +22,10 @@
 		599016F91AB57084004394F9 /* MYRBatchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 599016F81AB57084004394F9 /* MYRBatchManager.m */; };
 		59BB3AAF19FBF983000A3669 /* MYRSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB3AAE19FBF983000A3669 /* MYRSignal.m */; };
 		59BB3AB219FD4B05000A3669 /* MYRAddBatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59BB3AB119FD4B05000A3669 /* MYRAddBatchViewController.m */; };
+		59ED9B741AC7BBCA00EFB44D /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59ED9B731AC7BBCA00EFB44D /* NotificationCenter.framework */; };
+		59ED9B7A1AC7BBCA00EFB44D /* RemoteExtensionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59ED9B791AC7BBCA00EFB44D /* RemoteExtensionViewController.m */; };
+		59ED9B7C1AC7BBCA00EFB44D /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 59ED9B7B1AC7BBCA00EFB44D /* MainInterface.storyboard */; };
+		59ED9B7F1AC7BBCA00EFB44D /* RemoteExtention.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 59ED9B721AC7BBCA00EFB44D /* RemoteExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9198327224984329B3AFEA1E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF685CE2C49B4E3A8DCD7210 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +37,28 @@
 			remoteGlobalIDString = 5973B58319D6B56700BED80C;
 			remoteInfo = MyRemote;
 		};
+		59ED9B7D1AC7BBCA00EFB44D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5973B57C19D6B56700BED80C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 59ED9B711AC7BBCA00EFB44D;
+			remoteInfo = RemoteExtention;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		59ED9B831AC7BBCA00EFB44D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				59ED9B7F1AC7BBCA00EFB44D /* RemoteExtention.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		54D1D2A174F54CE1B115BEE5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -73,6 +98,12 @@
 		59BB3AAE19FBF983000A3669 /* MYRSignal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYRSignal.m; sourceTree = "<group>"; };
 		59BB3AB019FD4B05000A3669 /* MYRAddBatchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYRAddBatchViewController.h; sourceTree = "<group>"; };
 		59BB3AB119FD4B05000A3669 /* MYRAddBatchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYRAddBatchViewController.m; sourceTree = "<group>"; };
+		59ED9B721AC7BBCA00EFB44D /* RemoteExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RemoteExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		59ED9B731AC7BBCA00EFB44D /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		59ED9B771AC7BBCA00EFB44D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		59ED9B781AC7BBCA00EFB44D /* RemoteExtensionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteExtensionViewController.h; sourceTree = "<group>"; };
+		59ED9B791AC7BBCA00EFB44D /* RemoteExtensionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoteExtensionViewController.m; sourceTree = "<group>"; };
+		59ED9B7B1AC7BBCA00EFB44D /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		FF685CE2C49B4E3A8DCD7210 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -91,6 +122,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59ED9B6F1AC7BBCA00EFB44D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59ED9B741AC7BBCA00EFB44D /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +165,7 @@
 				590F128319EB9F4B00FB97A6 /* EstimoteSDK */,
 				5973B58619D6B56700BED80C /* MyRemote */,
 				5973B5A319D6B56800BED80C /* MyRemoteTests */,
+				59ED9B751AC7BBCA00EFB44D /* RemoteExtention */,
 				5973B58519D6B56700BED80C /* Products */,
 				54D1D2A174F54CE1B115BEE5 /* Pods.xcconfig */,
 				BA5BDE6D141141859A911255 /* Frameworks */,
@@ -137,6 +177,7 @@
 			children = (
 				5973B58419D6B56700BED80C /* MyRemote.app */,
 				5973B5A019D6B56700BED80C /* MyRemoteTests.xctest */,
+				59ED9B721AC7BBCA00EFB44D /* RemoteExtention.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,6 +251,25 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		59ED9B751AC7BBCA00EFB44D /* RemoteExtention */ = {
+			isa = PBXGroup;
+			children = (
+				59ED9B781AC7BBCA00EFB44D /* RemoteExtensionViewController.h */,
+				59ED9B791AC7BBCA00EFB44D /* RemoteExtensionViewController.m */,
+				59ED9B7B1AC7BBCA00EFB44D /* MainInterface.storyboard */,
+				59ED9B761AC7BBCA00EFB44D /* Supporting Files */,
+			);
+			path = RemoteExtention;
+			sourceTree = "<group>";
+		};
+		59ED9B761AC7BBCA00EFB44D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				59ED9B771AC7BBCA00EFB44D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BA5BDE6D141141859A911255 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +277,7 @@
 				590F129019EB9F8F00FB97A6 /* CoreLocation.framework */,
 				590F128E19EB9F8300FB97A6 /* CoreBluetooth.framework */,
 				FF685CE2C49B4E3A8DCD7210 /* libPods.a */,
+				59ED9B731AC7BBCA00EFB44D /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -233,10 +294,12 @@
 				5973B58119D6B56700BED80C /* Frameworks */,
 				5973B58219D6B56700BED80C /* Resources */,
 				51621D8C77764A4E90A70652 /* Copy Pods Resources */,
+				59ED9B831AC7BBCA00EFB44D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				59ED9B7E1AC7BBCA00EFB44D /* PBXTargetDependency */,
 			);
 			name = MyRemote;
 			productName = MyRemote;
@@ -261,6 +324,23 @@
 			productReference = 5973B5A019D6B56700BED80C /* MyRemoteTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		59ED9B711AC7BBCA00EFB44D /* RemoteExtention */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59ED9B821AC7BBCA00EFB44D /* Build configuration list for PBXNativeTarget "RemoteExtention" */;
+			buildPhases = (
+				59ED9B6E1AC7BBCA00EFB44D /* Sources */,
+				59ED9B6F1AC7BBCA00EFB44D /* Frameworks */,
+				59ED9B701AC7BBCA00EFB44D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RemoteExtention;
+			productName = RemoteExtention;
+			productReference = 59ED9B721AC7BBCA00EFB44D /* RemoteExtention.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -276,6 +356,9 @@
 					5973B59F19D6B56700BED80C = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = 5973B58319D6B56700BED80C;
+					};
+					59ED9B711AC7BBCA00EFB44D = {
+						CreatedOnToolsVersion = 6.2;
 					};
 				};
 			};
@@ -294,6 +377,7 @@
 			targets = (
 				5973B58319D6B56700BED80C /* MyRemote */,
 				5973B59F19D6B56700BED80C /* MyRemoteTests */,
+				59ED9B711AC7BBCA00EFB44D /* RemoteExtention */,
 			);
 		};
 /* End PBXProject section */
@@ -313,6 +397,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		59ED9B701AC7BBCA00EFB44D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59ED9B7C1AC7BBCA00EFB44D /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +468,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		59ED9B6E1AC7BBCA00EFB44D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59ED9B7A1AC7BBCA00EFB44D /* RemoteExtensionViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -383,6 +483,11 @@
 			isa = PBXTargetDependency;
 			target = 5973B58319D6B56700BED80C /* MyRemote */;
 			targetProxy = 5973B5A119D6B56800BED80C /* PBXContainerItemProxy */;
+		};
+		59ED9B7E1AC7BBCA00EFB44D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 59ED9B711AC7BBCA00EFB44D /* RemoteExtention */;
+			targetProxy = 59ED9B7D1AC7BBCA00EFB44D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -560,6 +665,33 @@
 			};
 			name = Release;
 		};
+		59ED9B801AC7BBCA00EFB44D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = RemoteExtention/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		59ED9B811AC7BBCA00EFB44D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = RemoteExtention/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -589,6 +721,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		59ED9B821AC7BBCA00EFB44D /* Build configuration list for PBXNativeTarget "RemoteExtention" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59ED9B801AC7BBCA00EFB44D /* Debug */,
+				59ED9B811AC7BBCA00EFB44D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
