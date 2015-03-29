@@ -11,12 +11,17 @@
 
 @interface RemoteExtensionViewController () <NCWidgetProviding>
 
+@property (weak, nonatomic) IBOutlet UITableView *batchTableView;
+
 @end
 
 @implementation RemoteExtensionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.batchTableView.dataSource = self;
+    self.batchTableView.delegate = self;
+    self.preferredContentSize = CGSizeMake(0, 200);
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -34,5 +39,51 @@
 
     completionHandler(NCUpdateResultNewData);
 }
+
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+/*
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section
+{
+    return @"new batch signals";
+}
+ */
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    return 3;
+    //return self.batchSignals.sendables.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"batchCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
+    }
+    cell.textLabel.text = @"test";
+    cell.textLabel.textColor = [UIColor whiteColor];
+/*    MYRSignal *signal = (MYRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
+    cell.textLabel.text = signal.name;
+*/
+ return cell;
+
+ }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
 
 @end
