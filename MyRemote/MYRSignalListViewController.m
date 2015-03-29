@@ -6,20 +6,20 @@
 //  Copyright (c) 2014年 Kenichiro Sato. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "MYRSignalListViewController.h"
 #import "UIAlerView+Completion.h"
 #import "MYRSignalManager.h"
 
 #import <IRKit/IRHTTPClient.h>
 #import <IRKit/IRKit.h>
 
-@interface SecondViewController ()
+@interface MYRSignalListViewController ()
 {
     IRHTTPClient *_httpClient;
 }
 @end
 
-@implementation SecondViewController
+@implementation MYRSignalListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +48,7 @@
         return;
     }
     
-    __weak SecondViewController *me = self;
+    __weak MYRSignalListViewController *me = self;
     if (!_httpClient) {
         _httpClient = [IRHTTPClient waitForSignalWithCompletion:^(NSHTTPURLResponse *res, IRSignal *signal, NSError *error) {
             if (signal) {
@@ -58,9 +58,10 @@
     }
 }
 
-- (void)didReceiveSignal:(IRSignal *)signal
+- (void)didReceiveSignal:(IRSignal *)irSignal
 {
     if (self.editing) {
+        MYRSignal *signal = [[MYRSignal alloc] initWithSignal:irSignal];
         [[MYRSignalManager sharedManager] addSignal:signal at:0];
         [self showNameEditDialog:signal];
         NSLog( @"signal: %@", signal );
@@ -69,7 +70,7 @@
     [self startCapturing];
 }
 
-- (void)showNameEditDialog:(IRSignal *)signal
+- (void)showNameEditDialog:(MYRSignal *)signal
 {
     UIAlertView * alert = [[UIAlertView alloc]
                            initWithTitle:@"Name"
@@ -101,31 +102,34 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
     return [[[MYRSignalManager sharedManager] signals] count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:CellIdentifier];
     }
     
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+    MYRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     cell.textLabel.text = signal.name;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    IRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
+    MYRSignal *signal = [[MYRSignalManager sharedManager] signalAt:indexPath.row];
     if (self.editing) {
         [self showNameEditDialog:signal];
     } else {
-        [signal sendWithCompletion:^(NSError *error) {
+        [signal operateWithCompletion:^(NSError *error) {
             if (error) {
                 UIAlertView * alert = [[UIAlertView alloc]
                                        initWithTitle:@""
@@ -155,7 +159,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)tableView:(UITableView *)tableView
+moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
+      toIndexPath:(NSIndexPath *)toIndexPath
 {
     if(fromIndexPath.section != toIndexPath.section) {
         return;

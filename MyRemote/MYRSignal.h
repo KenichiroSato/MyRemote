@@ -14,18 +14,23 @@
 @required
 
 - (void)operate;
+- (NSString *)name;
 
 @end
 
-@interface MYRSignal : NSObject <Sendable>
-
-@property (nonatomic, strong) IRSignal* signal;
-
-@end
-
-@interface MYRBatchSignals : NSObject <Sendable>
-
+@interface MYRSignal : NSObject <Sendable, NSCoding>
+@property (nonatomic, strong) IRSignal* irSignal;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSArray *sendables;
+- (id)initWithSignal:(IRSignal *)signal;
+- (void)operateWithCompletion:(void (^)(NSError *error))completion;
+@end
 
+@interface MYRBatchSignals : NSObject <Sendable, NSCoding>
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSMutableArray *sendables;
+@end
+
+@interface MYRWait : NSObject <Sendable, NSCoding>
+- (id)initWithWaitTime:(NSInteger)waitTime;
+@property (nonatomic) NSInteger waitTime;
 @end
