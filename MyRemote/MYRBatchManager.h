@@ -2,7 +2,7 @@
 //  MYRBatchManager.h
 //  MyRemote
 //
-//  Created by 佐藤健一朗 on 2015/03/15.
+//  Created by KenichiroSato on 2015/03/15.
 //  Copyright (c) 2015年 Kenichiro Sato. All rights reserved.
 //
 
