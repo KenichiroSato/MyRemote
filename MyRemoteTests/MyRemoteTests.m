@@ -2,7 +2,7 @@
 //  MyRemoteTests.m
 //  MyRemoteTests
 //
-//  Created by 佐藤健一朗 on 2014/09/27.
+//  Created by KenKenSatoSato on 2014/09/27.
 //  Copyright (c) 2014年 Kenichiro Sato. All rights reserved.
 //
 
