@@ -73,9 +73,9 @@ titleForHeaderInSection:(NSInteger)section
     }
     cell.textLabel.text = @"test";
     cell.textLabel.textColor = [UIColor whiteColor];
-/*    MYRSignal *signal = (MYRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
+    MYRSignal *signal = (MYRSignal *)[self.batchSignals.sendables objectAtIndex:indexPath.row];
     cell.textLabel.text = signal.name;
-*/
+
  return cell;
 
  }
